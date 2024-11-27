@@ -1,0 +1,58 @@
+pipeline {
+  agent any
+  stages {
+
+    stage('Test Stage') {
+      steps {
+        script {
+          echo 'This shows the testing stages.'
+        }
+      }
+    }
+
+    stage('Parallel stages') {
+      parallel {
+
+        stage('Sequential nested stages') {
+          stages {
+            stage('Regression test') {
+              steps {
+                script {
+                  echo 'Regression test'
+                  sh 'sleep 20'
+                }
+              }
+            }
+            stage('Acceptance test') {
+              steps {
+                script {
+                  echo 'Acceptance Test'
+                  sh 'sleep 20'
+                }
+              }
+            }
+          }
+        }
+
+        stage('Performance test') {
+          steps {
+            script {
+              echo 'Performance test'
+              sh 'sleep 20'
+            }
+          }
+        }
+	stage('Code Quality test') {
+          steps {
+            script {
+              echo 'Code Quality test'
+              sh 'sleep 20'
+            }
+          }
+        }
+
+      }
+    }
+
+  }
+}
