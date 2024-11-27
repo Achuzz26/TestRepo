@@ -43,6 +43,10 @@ node {
             }
         }
     }
+    pipeline {
+  agent any
+  stages {
+
     stage('Test Stage') {
       steps {
         script {
@@ -60,7 +64,7 @@ node {
               steps {
                 script {
                   echo 'Regression test'
-                  sh 'sleep 20'
+                  sh 'sleep 10'
                 }
               }
             }
@@ -68,7 +72,7 @@ node {
               steps {
                 script {
                   echo 'Acceptance Test'
-                  sh 'sleep 20'
+                  sh 'sleep 10'
                 }
               }
             }
@@ -79,7 +83,7 @@ node {
           steps {
             script {
               echo 'Performance test'
-              sh 'sleep 20'
+              sh 'sleep 10'
             }
           }
         }
@@ -87,11 +91,13 @@ node {
           steps {
             script {
               echo 'Code Quality test'
-              sh 'sleep 20'
+              sh 'sleep 10'
             }
           }
         }
 
       }
-}
+    }
+
+  }
 }
