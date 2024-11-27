@@ -11,42 +11,13 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'Main', credentialsId: '055f92bf-d6eb-4da1-b195-411ad5b43a1d', url: 'https://github.com/Achuzz26/PetStoreWebApp.git'
-
+}}
+	stage('Clean_package') {
+	        steps {
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-            }
-
-            
-        }
-    }
-}
-node {
-    def mvnHome
-    stage('Preparation') { // for display purposes
-        // Get some code from a GitHub repository
-        git branch: 'Main', credentialsId: '055f92bf-d6eb-4da1-b195-411ad5b43a1d', url: 'https://github.com/Achuzz26/PetStoreWebApp.git'
-        // Get the Maven tool.
-        // ** NOTE: This 'M3' Maven tool must be configured
-        // **       in the global configuration.
-        mvnHome = tool 'Maven'
-    }
-    stage('Clean_package') {
-        // Run the maven build
-        withEnv(["MVN_HOME=$mvnHome"]) {
-            if (isUnix()) {
-                sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-            } else {
-                bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-            }
-        }
-    }
-    pipeline {
-  agent any
-  stages {
-
+                           }}
     stage('Test Stage') {
       steps {
         script {
@@ -60,21 +31,23 @@ node {
 
         stage('Sequential nested stages') {
           stages {
-            stage('Regression test') {
+            stage('Regression test')
+           {
               steps {
                 script {
                   echo 'Regression test'
                   sh 'sleep 10'
-                }
-              }
+                       }
+                    }
             }
-            stage('Acceptance test') {
+            stage('Acceptance test') 
+           {
               steps {
                 script {
                   echo 'Acceptance Test'
                   sh 'sleep 10'
-                }
-              }
+                       }
+                    }
             }
           }
         }
@@ -98,7 +71,5 @@ node {
 
       }
     }
-
-  }
-}
+    }
 }
