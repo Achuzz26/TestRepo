@@ -43,10 +43,6 @@ node {
             }
         }
     }
-pipeline {
-  agent any
-  stages {
-
     stage('Test Stage') {
       steps {
         script {
@@ -97,8 +93,5 @@ pipeline {
         }
 
       }
-    }
-
-  }
 }
 }
